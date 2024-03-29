@@ -42,20 +42,79 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * struct arg_s - this will hold variables
- * @stream: this file connects the stream to from the file
- * @line: string which will be the line of text to be read by the stream
+ * struct globals - this will hold variables to be used as global
+ * @lifo: this stack or queue
+ * @cont: this will current line
+ * @arg: this the second parameter within the current line
+ * @head: doubly linked list
+ * @fd: file descriptor
+ * @buffer: input text
  *
- * Description: this holds the variable that will be used
- * in different part of functions in the project
- * there will be allocation and freeing
+ * Description: this is the doubly linked list node structure
+ * for stack, queues, LIFO, FIFO
  */
-typedef struct arg_s
+typedef struct globals
 {
-	FILE *stream;
-	char *line;
-} arg_t;
+	int lifo;
+	unsigned int cont;
+	char *arg;
+	stack_t *head;
+	FILE *fd;
+	char *buffer;
+} global_t;
 
-extern arg_t *arguments;
+/**
+ * struct instruction_s - opcode and the functions
+ * @opcode: the opcode
+ * @f: functions to handle the opcode
+ *
+ * Description: this is the opcode and function
+ * for stack, queues, LIFO, FIFO
+ */
+typedef struct instruction_s
+{
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
+} instruction_t;
+
+extern global_t vglo;
+
+/* opcode_instructions */
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **doubly, unsigned int cline);
+void _pop(stack_t **doubly, unsigned int cline);
+void _swap(stack_t **doubly, unsigned int cline);
+void _queue(stack_t **doubly, unsigned int cline);
+void _stack(stack_t **doubly, unsigned int cline);
+void _add(stack_t **doubly, unsigned int cline);
+void _nop(stack_t **doubly, unsigned int cline);
+void _sub(stack_t **doubly, unsigned int cline);
+void _div(stack_t **doubly, unsigned int cline);
+void _mul(stack_t **doubly, unsigned int cline);
+void _mod(stack_t **doubly, unsigned int cline);
+void _pchar(stack_t **doubly, unsigned int cline);
+void _pstr(stack_t **doubly, unsigned int cline);
+void _rotl(stack_t **doubly, unsigned int cline);
+void _rotr(stack_t **doubly, unsigned int cline);
+
+/* get function */
+void (*get_opcodes(char *opc))(stack_t **stack, unsigned int line_number);
+
+/* imported functions */
+int _sch(char *s, char c);
+char *_stroky(char *s, char *d);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void *_calloc(unsigned int nmemb, unsigned int size);
+int _strcmp(char *s1, char *s2);
+
+/* doubly linked list functions */
+stack_t *add_dnodeint_end(stack_t **head, const int n);
+stack_t *add_dnodeint(stack_t **head, const int n);
+void free_dlistint(stack_t *head);
+
+/* main */
+void free_vglo(void);
+
 
 #endif /* MONTY_H */
