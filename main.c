@@ -60,13 +60,13 @@ FILE *check_input(int argc, char *argv[])
 /**
  * main - Entry point of the program
  * @argc: this will be the number of command line arguments
- * @argv: This is a pointer to an array of stings containing
- * the command line of arguments.
- * Description: print alphabet in lowercase using putchar
+ * @argv: This is the argument vector
+ *
+ * Description: print the results of the program
  *
  * Return: 0 (Sucess)
  */
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	void (*f)(stack_t **stack, unsigned int line_number);
 	FILE *fd;
@@ -98,5 +98,6 @@ int main(int argc, char **argv)
 	}
 
 	free_vglo();
+
 	return (0);
 }
