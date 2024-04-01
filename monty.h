@@ -1,6 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
- /* #define _GNU_SOURCE */ 
+#define _GNU_SOURCE  
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -90,7 +90,7 @@ void (*get_opcodes(char *opc))(stack_t **stack, unsigned int line_number);
 
 /* imported functions */
 int _sch(char *s, char c);
-char *_stroky(char *s, char *d);
+char *_strtoky(char *s, char *d);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void *_calloc(unsigned int nmemb, unsigned int size);
 int _strcmp(char *s1, char *s2);

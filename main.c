@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 	nlines = getline(&vglo.buffer, &size, fd);
 	while (nlines != -1)
 	{
-		lines[0] = _stroky(vglo.buffer, " \t\n");
+		lines[0] = _strtoky(vglo.buffer, " \t\n");
 		if (lines[0] && lines[0][0] != '#')
 		{
 			f = get_opcodes(lines[0]);
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 				free_vglo();
 				exit(EXIT_FAILURE);
 			}
-			vglo.arg = _stroky(NULL, " \t\n");
+			vglo.arg = _strtoky(NULL, " \t\n");
 			f(&vglo.head, vglo.cont);
 		}
 		nlines = getline(&vglo.buffer, &size, fd);
